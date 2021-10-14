@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     // return 'Hello';
@@ -56,3 +58,16 @@ Route::prefix('admin')->group(function(){
         return "Admin deleted";
     });
 });
+
+
+Route::get('create_customer', function(){
+    $data = [
+        'name'=>'jahid',
+        'email'=>'j@gmail.com',
+        'created_at'=>now(),
+        'updated_at'=>now(),
+    ];
+    DB::table('customers')->insert($data);
+});
+
+Route::get('customers',[CustomerController::class,'index']);
